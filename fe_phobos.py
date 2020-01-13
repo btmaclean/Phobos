@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 
 #--------------- FE-PHOBOS -------------------#
 #-- The first step for a new star, creates a model from original parameter estimates, runs ARES EW measurement code, and runs EWs through MOOG to give an initial metallicity. To be called from Phobos after a check for whether a moog_input line list exists yet.
@@ -13,6 +13,7 @@ if not os.path.exists('moog_input/{}.fe.lines'.format(name)):
 	#-------------- ARES ----------------------------#
 	#-- Run star through ARES, and prepares the MOOG input file from the ARES output file and line list.
 	ares(name,location,feelements,linelist_fe,linelist_elements)
+	fill_lines(name,location,feelements,linelist_fe,linelist_elements)
 
 #operation = raw_input('\nAre you sure you want to run Fe-Phobos? [y/N] ')
 #if operation.lower().startswith('y'):
@@ -29,7 +30,7 @@ model(name,location,Teff,logg,xi,fe_h)
 #--------------- MOOG -------------------------#
 #-- Make a MOOG parameter file for each star, run through MOOG and summarise abundances in a text file in root analysis directory.
 
-plotornot = 0
+plotornot = 1
 moog(star,name,feelements,location,plotornot)
 X_lines_summary(name,location,feelements)
 
@@ -37,8 +38,8 @@ X_lines_summary(name,location,feelements)
 #subprocess.Popen(['{}'.format(texteditor), '{}'.format(linelist_fe)])
 #subprocess.Popen(['{}'.format(texteditor), 'photo.params'])
 #subprocess.Popen(['{}'.format(texteditor), 'spectro.params'])
-#subprocess.Popen(['{}'.format(texteditor), 'moog_out2/{n}.out2'.format(n=name)])
-#subprocess.Popen(['{}'.format(texteditor), 'moog_input/{n}.fe.lines'.format(n=name)])
+#subprocess.Popen(['{}'.format(texteditor), 'moog_out2/{n}.out2'.format(n=name)], shell=True)
+#subprocess.Popen(['{}'.format(texteditor), 'moog_input/{n}.fe.lines'.format(n=name)], shell=True)
 
 #-- Create arrays: 'ablist' that contains an abundance value or stdev in each element; 'EPslope' and 'RWslope' which contain each value for FeI and FeII; and 'Iondiff' which specifies FeI-FeII.
 psumlist = psum(name,Teff,logg,xi)

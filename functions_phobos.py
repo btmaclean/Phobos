@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 
 #-------------- PYCLEAN ----------------------------#
 #-- Remove temporary *.pyc files from the Phobos location directory.
@@ -83,7 +83,7 @@ def ares(name,location,feelements,linelist_fe,linelist_elements):
     else:
         os.chdir('ares/')
     #-- BLUE --#
-    #-- Clean directory.    
+    #-- Clean directory.
     if os.path.exists('mine.opt'):
         os.remove('mine.opt')
     if os.path.exists('logARES.txt'):
@@ -106,10 +106,10 @@ def ares(name,location,feelements,linelist_fe,linelist_elements):
         'miniline=5\n'\
         'plots_flag=0\n'.format(n=name,ll=linelist,fee=feelements))
     #-- Run ARES until it fully completes
-    ares_out = subprocess.Popen(['ARES'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT).communicate(input=None)
+    ares_out = subprocess.Popen(['ARES'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True).communicate(input=None)
     print ares_out
     while not os.path.exists('{}.{}.ares'.format(name,feelements)):
-        ares_out = subprocess.Popen(['ARES'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT).communicate(input=None)
+        ares_out = subprocess.Popen(['ARES'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True).communicate(input=None)
         print '\nARES failed\n'
         print ares_out
     print '\nARES completed\n'
@@ -130,7 +130,7 @@ def ares(name,location,feelements,linelist_fe,linelist_elements):
         print 'No blue absorption lines found.'
         final_array_blue.append([0, 0, 0, 0, 0, 0, 0])
     #-- GREEN, RED, IR --#
-    #-- Clean directory.    
+    #-- Clean directory.
     if os.path.exists('mine.opt'):
         os.remove('mine.opt')
     if os.path.exists('logARES.txt'):
@@ -151,10 +151,10 @@ def ares(name,location,feelements,linelist_fe,linelist_elements):
         'miniline=5\n'\
         'plots_flag=0\n'.format(n=name,ll=linelist,fee=feelements))
     #-- Run ARES until it fully completes
-    ares_out = subprocess.Popen(['ARES'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT).communicate(input=None)
+    ares_out = subprocess.Popen(['ARES'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True).communicate(input=None)
     print ares_out
     while not os.path.exists('{}.{}.ares'.format(name,feelements)):
-        ares_out = subprocess.Popen(['ARES'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT).communicate(input=None)
+        ares_out = subprocess.Popen(['ARES'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True).communicate(input=None)
         print '\nARES failed\n'
         print ares_out
     print '\nARES completed\n'
@@ -202,6 +202,7 @@ def ares(name,location,feelements,linelist_fe,linelist_elements):
     final_array_37_0 = final_array_pre[final_array_pre[:,1] == 37.0]
     final_array_38_0 = final_array_pre[final_array_pre[:,1] == 38.0]
     final_array_39_0 = final_array_pre[final_array_pre[:,1] == 39.0]
+    final_array_39_1 = final_array_pre[final_array_pre[:,1] == 39.1]
     final_array_40_0 = final_array_pre[final_array_pre[:,1] == 40.0]
     final_array_44_0 = final_array_pre[final_array_pre[:,1] == 44.0]
     final_array_56_1 = final_array_pre[final_array_pre[:,1] == 56.1]
@@ -209,7 +210,7 @@ def ares(name,location,feelements,linelist_fe,linelist_elements):
     final_array_58_1 = final_array_pre[final_array_pre[:,1] == 58.1]
     final_array_60_1 = final_array_pre[final_array_pre[:,1] == 60.1]
     final_array_63_1 = final_array_pre[final_array_pre[:,1] == 63.1]
-    final_array = np.vstack((final_array_26_0,final_array_26_1,final_array_3_0,final_array_6_0,final_array_8_0,final_array_11_0,final_array_12_0,final_array_13_0,final_array_14_0,final_array_19_0,final_array_20_0,final_array_21_0,final_array_21_1,final_array_22_0,final_array_22_1,final_array_23_0,final_array_24_0,final_array_24_1,final_array_25_0,final_array_27_0,final_array_28_0,final_array_29_0,final_array_30_0,final_array_37_0,final_array_38_0,final_array_39_0,final_array_40_0,final_array_44_0,final_array_56_1,final_array_57_1,final_array_58_1,final_array_60_1,final_array_63_1))
+    final_array = np.vstack((final_array_26_0,final_array_26_1,final_array_3_0,final_array_6_0,final_array_8_0,final_array_11_0,final_array_12_0,final_array_13_0,final_array_14_0,final_array_19_0,final_array_20_0,final_array_21_0,final_array_21_1,final_array_22_0,final_array_22_1,final_array_23_0,final_array_24_0,final_array_24_1,final_array_25_0,final_array_27_0,final_array_28_0,final_array_29_0,final_array_30_0,final_array_37_0,final_array_38_0,final_array_39_0,final_array_39_1,final_array_40_0,final_array_44_0,final_array_56_1,final_array_57_1,final_array_58_1,final_array_60_1,final_array_63_1))
     #-- Print to file
     np.savetxt('{}/moog_input/{}.{}.lines'.format(location,name,feelements), final_array, fmt='%.2f\t%.1f\t%.3f\t%.3f\t%.0f\t%.0f\t%.2f', newline='\n', header='\t0\t0\t')
     if os.path.exists('mine.opt'):
@@ -232,12 +233,17 @@ def model(name,location,Teff,logg,xi,fe_h):
         os.chdir('models/')
     else:
         os.chdir('models/')
-    #-- Clean directory.    
+    #-- Clean directory.
     if os.path.exists('{}.model.dat'.format(name)):
         os.remove('{}.model.dat'.format(name))
     #-- Depending on the parameters Teff and logg, a model is created with Castelli using an input grid that covers the parameters.
-    subprocess.Popen(['makekurucz3'], stdin=subprocess.PIPE, stdout=FNULL, stderr=subprocess.STDOUT).communicate(input='{},{},{},{}\nAODFNEW'.format(Teff,logg,fe_h,xi))
+    print(Teff)
+    print(logg)
+    print(fe_h)
+    print(xi)
+    subprocess.Popen(['makekurucz3'], stdin=subprocess.PIPE, stdout=FNULL, stderr=subprocess.STDOUT, shell=True).communicate(input='{},{},{},{}\nAODFNEW'.format(Teff,logg,fe_h,xi))
     #-- Remove temp files and rename model.
+    print(name)
     os.rename('FINALMODEL', '{}.model.dat'.format(name))
     os.chdir(location)
     return
@@ -281,8 +287,15 @@ def moog(star,name,feelements,location,plotornot):
         'flux/int 0\n'\
         'damping 0\n'\
         'plot {plotornot}'.format(n=name,fee=feelements,plotornot=plotornot))
+
+    number_of_elements = 500
+    newlines = '\n' * number_of_elements
+    input_text = '\n{}{}'.format(star, newlines)
+
     #-- Runs MOOG using the moog_input line file.
-    subprocess.Popen(['MOOG'], stdin=subprocess.PIPE, stdout=FNULL, stderr=subprocess.STDOUT).communicate(input='\n{}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'.format(star))
+    subprocess.Popen(['MOOG'], stdin=subprocess.PIPE,
+                     stdout=FNULL, stderr=subprocess.STDOUT, shell=True) \
+              .communicate(input=input_text)
     os.chdir(location)
     return
 
@@ -310,6 +323,8 @@ def psum(name,Teff,logg,xi):
         EPslope = '-'
     RWslope = []
     for line in open('moog_out2/{}.out2'.format(name)):
+        if 'No statistics done for R.W. trends' in line:
+            RWslope.append(999)
         if 'R.W. correlation' in line:
             for t in line.split():
                 try:
@@ -346,28 +361,37 @@ def create_photom_params(location,fe_h,dist_mod,colour_scale):
         a0 = 0.5737; a1 = 0.4882; a2 = -0.0149; a3 = 0.0563; a4 = -0.1160; a5 = -0.0114
     elif colour_scale == 'VK':
         a0 = 0.4405; a1 = 0.3272; a2 = -0.0252; a3 = -0.0016; a4 = -0.0053; a5 = -0.0040
+    elif colour_scale == 'VKgonz':
+        a0 = 0.5293; a1 = 0.2489; a2 = -0.0119; a3 = -0.0042; a4 = 0.0135; a5 = 0.0010
     elif colour_scale == 'VJ':
         a0 = 0.2943; a1 = 0.5604; a2 = -0.0677; a3 = 0.0179; a4 = -0.0532; a5 = -0.0088
     elif colour_scale == 'VH':
         a0 = 0.4354; a1 = 0.3405; a2 = -0.0263; a3 = -0.0012; a4 = -0.0049; a5 = -0.0027
     elif colour_scale == 'by':
         a0 = 0.5515; a1 = 0.9085; a2 = -0.1494; a3 = 0.0616; a4 = -0.0668; a5 = -0.0083
+    elif colour_scale == 'VIc':
+        a0 = 0.3295; a1 = 0.9516; a2 = -0.2290; a3 = -0.0316; a4 = 0.0003; a5 = -0.0081
+    elif colour_scale == 'VI':
+        a0 = 0.5379; a1 = 0.3981; a2 = 0.04432; a3 = -0.02693
     else:
         sys.exit('\nUnsupported photometric colour scale. Exiting Phobos')
     for i in range(len(photometry)):
         name = photometry[i][0]
         V = photometry[i][1]
         colour = photometry[i][2]
-        Teff = 5040/(a0+(a1*colour)+(a2*(colour**2))+(a3*colour*fe_h)+(a4*fe_h)+(a5*(fe_h**2)))
+        if colour_scale == 'VI':
+            Teff = 5040/(a0+(a1*colour)+(a2*(colour**2))+(a3*(colour**3)))
+        else:
+            Teff = 5040/(a0+(a1*colour)+(a2*(colour**2))+(a3*colour*fe_h)+(a4*fe_h)+(a5*(fe_h**2)))
         Teff = int(float("{0:.0f}".format(Teff)))
         if Teff <= 4677:
-            logg = 4.44+math.log10(0.8)+0.4*(V-dist_mod+((-5.531*10**(-2))/(math.log10(Teff)-3.52))-0.6177+(4.420*(math.log10(Teff)-3.52))-2.669*((math.log10(Teff)-3.52)**2)+(0.6943*(math.log10(Teff)-3.52)*fe_h)-0.1071*fe_h-(8.612*10**(-3))*(fe_h**2)-4.72)+4.0*math.log10(Teff)-15.0447 
+            logg = 4.44+math.log10(0.8)+0.4*(V-dist_mod+((-5.531*10**(-2))/(math.log10(Teff)-3.52))-0.6177+(4.420*(math.log10(Teff)-3.52))-2.669*((math.log10(Teff)-3.52)**2)+(0.6943*(math.log10(Teff)-3.52)*fe_h)-0.1071*fe_h-(8.612*10**(-3))*(fe_h**2)-4.72)+4.0*math.log10(Teff)-15.0447
         else:
-            logg = 4.44+math.log10(0.8)+0.4*(V-dist_mod+((-9.930*10**(-2))/(math.log10(Teff)-3.52))+2.887*10**(-2)+(2.275*(math.log10(Teff)-3.52))-4.425*((math.log10(Teff)-3.52)**2)+(0.3505*(math.log10(Teff)-3.52)*fe_h)-(5.558*10**(-2))*fe_h-(5.375*10**(-3))*(fe_h**2)-4.72)+4.0*math.log10(Teff)-15.0447 
+            logg = 4.44+math.log10(0.8)+0.4*(V-dist_mod+((-9.930*10**(-2))/(math.log10(Teff)-3.52))+2.887*10**(-2)+(2.275*(math.log10(Teff)-3.52))-4.425*((math.log10(Teff)-3.52)**2)+(0.3505*(math.log10(Teff)-3.52)*fe_h)-(5.558*10**(-2))*fe_h-(5.375*10**(-3))*(fe_h**2)-4.72)+4.0*math.log10(Teff)-15.0447
         logg = float("{0:.2f}".format(logg))
         xi = 2.22-0.322*logg
         xi = float("{0:.2f}".format(xi))
-        photo_params.append([name, Teff, logg, xi])
+        photo_params.append([name, Teff, logg, xi, V])
     np.savetxt('photo.params', photo_params, fmt='%s', newline='\n')
     return
 
@@ -378,7 +402,7 @@ def X_lines_summary(name,location,feelements):
     import os
     os.chdir(location)
     if not os.path.exists('X_line_abundance_summaries/'):
-    	os.mkdir('X_line_abundance_summaries/')
+        os.mkdir('X_line_abundance_summaries/')
     if not os.path.exists('X_line_abundance_summaries/{}'.format(name)):
         os.mkdir('X_line_abundance_summaries/{}'.format(name))
     #-- Get lines used on star and cross reference with moog_out2 to create a numpy array row for each absorption line.
@@ -399,6 +423,7 @@ def X_lines_summary(name,location,feelements):
             np.savetxt('X_line_abundance_summaries/{}/{}_lines.summary'.format(name,element_name), temp_element, fmt='%s', newline='\n', header='Wavelength\tEW\tLTE_abundance', delimiter='\t')
         return
     #-- Run through every element that might be measured separately.
+    print(temp)
     FeI = temp[temp[:,1] == 26.0]
     create_X_summary_file(FeI, 'FeI')
     FeII = temp[temp[:,1] == 26.1]
@@ -465,6 +490,43 @@ def X_lines_summary(name,location,feelements):
     create_X_summary_file(NdII, 'NdII')
     EuII = temp[temp[:,1] == 63.1]
     create_X_summary_file(EuII, 'EuII')
+    YII = temp[temp[:,1] == 39.1]
+    create_X_summary_file(YII, 'YII')
     return
+
+#-------------- FILL MOOG INPUT WITH UNMEASURED LINES ----------------------------#
+#-- After ARES is run, this compares the moog-input file with the line-list and writes in lines that ARES missed
+def fill_lines(name,location,feelements,linelist_fe,linelist_elements):
+    import numpy as np
+    import os
+    os.chdir(location)
+    if feelements == 'fe':
+        linelist = np.genfromtxt('{}'.format(linelist_fe),dtype=None,skip_header=2)
+    if feelements == 'elements':
+        linelist = np.genfromtxt('{}'.format(linelist_elements),dtype=None,skip_header=2)
+    for i in range(len(linelist)):
+        if os.path.exists('tempfill.txt'):
+            os.remove('tempfill.txt')
+        for line in open('moog_input/{}.{}.lines'.format(name,feelements)):
+            if '{}'.format(linelist[i][0]) in line:
+                with open('tempfill.txt','a') as f1:
+                    f1.write('\n')
+        if not os.path.exists('tempfill.txt'):
+            with open('moog_input/{}.{}.lines'.format(name,feelements),'a') as f2:
+                f2.write('{}\t{}\t{}\t{}\t0\t0\t999\n'.format(linelist[i][0],linelist[i][1],linelist[i][2],linelist[i][3]))
+        dtype = [('wavelength', float), ('species', float), ('EP', float), ('loggf', float), ('zero1', int), ('zero2', int), ('EW', float)]
+        mooginput = np.genfromtxt('moog_input/{}.{}.lines'.format(name,feelements),dtype=dtype,skip_header=1)
+        mooginput = np.sort(mooginput,order=['species', 'wavelength'])
+        os.remove('moog_input/{}.{}.lines'.format(name,feelements))
+        np.savetxt('moog_input/{}.{}.lines'.format(name,feelements), mooginput, fmt='%.2f\t%.1f\t%.3f\t%.3f\t%.0f\t%.0f\t%.0f', newline='\n', header='\t0\t0\t')
+        if os.path.exists('tempfill.txt'):
+            os.remove('tempfill.txt')
+    return
+
+
+
+
+
+
 
 

@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 
 #--------------- PARAMETER_PHOBOS -------------------#
 #-- This is the MAIN Phobos scripts, which minimizes EP-slope, RW-slope and Ion-Difference to calculate stellar parameters, based on EW measurements made by Fe-Phobos or by hand.
@@ -246,7 +246,7 @@ elif psumlist[1] >= 0.015:
 else: print 'RW slope within tolerance'
 
 #-- logg
-if 'AGB' in name:
+if 'BLARG' in name:
 	print 'AGB star. Skipping ionization balance'
 else:
 	if psumlist[2] <= -0.15:
@@ -342,7 +342,7 @@ elif psumlist[1] >= 0.015:
 else: print 'RW slope within tolerance'
 
 #-- logg
-if 'AGB' in name:
+if 'BLARG' in name:
 	print 'AGB star. Skipping ionization balance'
 else:
 	if psumlist[2] <= -0.1:
@@ -382,7 +382,7 @@ X_lines_summary(name,location,feelements)
 print '\n\n\n\n\nPhobos succeeded for {n} (star {s}).'.format(n=name,s=star)
 psumlist = psum(name,Teff,logg,xi)
 fe_h = psumlist[3] - 7.5
-print '\nSpec Params: {}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n'.format(Teff,logg,xi,psumlist[3],psumlist[4],psumlist[5],psumlist[6],psumlist[7],psumlist[8])
+print '\nSpec Params: {}\t{}\t{}\t{}\t{}\t{}\t{}\n'.format(Teff,logg,xi,psumlist[3],psumlist[4],psumlist[6],psumlist[7])
 
 #-- Update spectroscopic parameter file and backup moog_input line file.
 params[arrayelement][1] = int(Teff)

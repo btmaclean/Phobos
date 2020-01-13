@@ -5,17 +5,17 @@
 #-------------------------------------------------#
 #--------------- USER TO DEFINE ------------------#
 #-- Define location of analysis directory.
-location = "/Users/macleanb/data/m4/m4_members/analysis"
+location = "/home/osboxes/summer2018-19/phobos/analysis"
 #-- Define the two linelist files.
-linelist_fe = "/Users/macleanb/data/line_lists/fe_short.lines"
-linelist_elements = "/Users/macleanb/data/line_lists/nao.lines"
+linelist_fe = "/home/osboxes/summer2018-19/phobos/line_lists/fe_short.lines"
+linelist_elements = "/home/osboxes/summer2018-19/phobos/line_lists/naomgal.lines"
 #-- Choose prefered text editor launch command (e.g. gedit)
-texteditor = "mate"
+texteditor = "emacs"
 #-- Set initial estimate for metallicity ([Fe/H])
-fe_h = -1.15
+fe_h = -1.26
 #-- Define distance modulus of cluster
-dist_mod = 12.82
+dist_mod = 14.79
 #-- Define colour scale in photometry (options: BV, VJ, VK, VH, by)
-colour_scale = "VK"
+colour_scale = "VKgonz"
 #--------------- USER TO DEFINE ------------------#
 #-------------------------------------------------#
