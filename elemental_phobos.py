@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 
 #--------------- ELEMENTS_PHOBOS -------------------#
 #-- This is pretty much the same as Fe-Phobos, except that is used the elemental line list (no fe lines).
@@ -56,6 +56,7 @@ model(name,location,Teff,logg,xi,fe_h)
 #-- Run star through ARES, and prepares the MOOG input file from the ARES output file and line list.
 
 ares(name,location,feelements,linelist_fe,linelist_elements)
+fill_lines(name,location,feelements,linelist_fe,linelist_elements)
 
 #--------------- MOOG -------------------------#
 #-- Make a MOOG parameter file for each star, run through MOOG and summarise abundances in a text file in root analysis directory.
@@ -65,9 +66,9 @@ moog(star,name,feelements,location,plotornot)
 X_lines_summary(name,location,feelements)
 
 #-- Opens the moog_output and moog_input line files in chosen.
-subprocess.Popen(['{}'.format(texteditor), 'moog_input/{n}.elements.lines'.format(n=name)])
-subprocess.Popen(['{}'.format(texteditor), 'moog_out2/{n}.out2'.format(n=name)])
-subprocess.Popen(['{}'.format(texteditor), '{}'.format(linelist_elements)])
+#subprocess.Popen(['{}'.format(texteditor), 'moog_input/{n}.elements.lines'.format(n=name)], shell=True)
+#ssubprocess.Popen(['{}'.format(texteditor), 'moog_out2/{n}.out2'.format(n=name)], shell=True)
+#subprocess.Popen(['{}'.format(texteditor), '{}'.format(linelist_elements)])
 
 # psumlist = psum(name,Teff,logg,xi)
 # results = [(name, psumlist[3],psumlist[4],psumlist[6],psumlist[7])]

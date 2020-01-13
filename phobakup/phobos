@@ -28,7 +28,7 @@ from functions_phobos import fill_lines
 scriptloc = "/home/osboxes/software/phobos"
 print scriptloc
 
-cluster = raw_input('\nPlease specify which cluster you would like to Phobos [m4][6397][47tuc][m55][ngc288]: ')
+cluster = raw_input('\nPlease specify which cluster you would like to Phobos [m4][6397][47tuc][m55]: ')
 if cluster.lower() == 'm4':
 	print '\nCluster: Messier 4 (NGC 6121)'
 	with open('/Users/macleanb/observational_software/scripts/phobos/user_variables.py', 'w') as user_var:
@@ -75,30 +75,6 @@ elif cluster.lower() == '6397':
 		'dist_mod = 12.37\n'\
 		'#-- Define colour scale in photometry (options: BV, VJ, VK, VH, by)\n'\
 		'colour_scale = "BV"\n'\
-		'#--------------- USER TO DEFINE ------------------#\n'\
-		'#-------------------------------------------------#')
-elif cluster.lower() == 'ngc288' or cluster.lower() == '288':
-	print '\nCluster: NGC 288'
-	with open('/home/osboxes/software/phobos/user_variables.py', 'w') as user_var:
-		user_var.write('#!/usr/local/bin/python\n'\
-		'\n'\
-		'#--------------- USER VARIABLES ------------------#\n'\
-		'\n'\
-		'#-------------------------------------------------#\n'\
-		'#--------------- USER TO DEFINE ------------------#\n'\
-		'#-- Define location of analysis directory.\n'\
-		'location = "/home/osboxes/summer2018-19/phobos/analysis"\n'\
-		'#-- Define the two linelist files.\n'\
-		'linelist_fe = "/home/osboxes/summer2018-19/phobos/line_lists/fe_short.lines"\n'\
-		'linelist_elements = "/home/osboxes/summer2018-19/phobos/line_lists/naomgal.lines"\n'\
-		'#-- Choose prefered text editor launch command (e.g. gedit)\n'\
-		'texteditor = "emacs"\n'\
-		'#-- Set initial estimate for metallicity ([Fe/H])\n'\
-		'fe_h = -1.26\n'\
-		'#-- Define distance modulus of cluster\n'\
-		'dist_mod = 14.79\n'\
-		'#-- Define colour scale in photometry (options: BV, VJ, VK, VH, by)\n'\
-		'colour_scale = "VKgonz"\n'\
 		'#--------------- USER TO DEFINE ------------------#\n'\
 		'#-------------------------------------------------#')
 elif cluster.lower() == '47tuc' or cluster.lower() == '47':
